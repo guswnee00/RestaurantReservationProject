@@ -6,10 +6,12 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.zerobase.restaurantreservationproject.domain.restaurant.entity.RestaurantEntity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Builder
@@ -32,18 +34,19 @@ public class ManagerEntity implements UserDetails {
     @OneToOne
     @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
     private RestaurantEntity restaurantId;
-    //private String restaurantName;
+    //private String restaurantName;        // restaurant 와 OneToOne 참조 했으니까 id만 있어도 되지 않을까..?
 
     @CreatedDate
     private LocalDateTime createdAt;
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 
-    //TODO
-    // - 권한 설정
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("MANAGER"));
+        return authorities;
     }
 
     @Override
