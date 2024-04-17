@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.zerobase.restaurantreservationproject.domain.manager.entity.ManagerEntity;
 import org.zerobase.restaurantreservationproject.domain.restaurant.entity.RestaurantEntity;
 
 import java.time.LocalDateTime;
@@ -27,4 +28,16 @@ public class ManagerDto {
 
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+
+    public static ManagerDto toDto(ManagerEntity entity) {
+        return ManagerDto.builder()
+                .managerId(entity.getManagerId())
+                .password(entity.getPassword())
+                .managerName(entity.getManagerName())
+                .phoneNumber(entity.getPhoneNumber())
+                .role(entity.getRole())
+                .createdAt(entity.getCreatedAt())
+                .modifiedAt(entity.getModifiedAt())
+                .build();
+    }
 }
