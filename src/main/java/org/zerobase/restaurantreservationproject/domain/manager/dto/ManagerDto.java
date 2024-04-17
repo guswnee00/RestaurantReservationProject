@@ -1,9 +1,6 @@
 package org.zerobase.restaurantreservationproject.domain.manager.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.zerobase.restaurantreservationproject.domain.manager.entity.ManagerEntity;
 import org.zerobase.restaurantreservationproject.domain.restaurant.entity.RestaurantEntity;
 
@@ -12,7 +9,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Data
+@Getter
+@Setter
 public class ManagerDto {
 
     private String managerId;
