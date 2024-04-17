@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class ManagerDto {
 
     private String managerId;
-    private  String password;
+    private String password;
 
     private String managerName;
     private String phoneNumber;
