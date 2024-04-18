@@ -24,7 +24,7 @@ import java.util.Collection;
 public class ManagerEntity implements UserDetails {
     @Id
     private String managerId;
-    private  String password;
+    private String password;
 
     private String managerName;
     private String phoneNumber;
