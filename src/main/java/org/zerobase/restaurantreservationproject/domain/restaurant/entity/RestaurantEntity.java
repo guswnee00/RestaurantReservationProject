@@ -17,8 +17,12 @@ import java.time.LocalDateTime;
 public class RestaurantEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @OneToOne(mappedBy = "restaurantId")
-    private ManagerEntity id;
+    private Long id;
+    private String managerId;
+
+    @OneToOne
+    @JoinColumn(name = "manager_id", referencedColumnName = "managerId")
+    private ManagerEntity manager;
 
     private String restaurantName;
     private String restaurantAddress;
@@ -27,8 +31,10 @@ public class RestaurantEntity {
     private double lat;
     private double lnt;
 
-    private double reviewGrade;
-    private Long reviewAmount;
+    // TODO
+    //  - 리뷰엔티티와 연결
+    //private double reviewGrade;
+    //private Long reviewAmount;
 
     @CreatedDate
     private LocalDateTime createdAt;
