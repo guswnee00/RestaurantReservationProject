@@ -21,8 +21,7 @@ public class ManagerDto {
 
     private String role;
 
-    private RestaurantEntity restaurantId;
-    //private String restaurantName;
+    private RestaurantEntity restaurant;
 
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;

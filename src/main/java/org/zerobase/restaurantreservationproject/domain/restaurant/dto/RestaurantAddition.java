@@ -62,7 +62,7 @@ public class RestaurantAddition {
                     .restaurantName(dto.getRestaurantName())
                     .restaurantAddress(dto.getRestaurantAddress())
                     .restaurantDetail(dto.getRestaurantDetail())
-                    .createdAt(LocalDateTime.now())
+                    .createdAt(dto.getCreatedAt())
                     .build();
         }
     }

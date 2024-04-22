@@ -31,10 +31,8 @@ public class ManagerEntity implements UserDetails {
 
     private String role;
 
-    @OneToOne
-    @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
-    private RestaurantEntity restaurantId;
-    //private String restaurantName;        // restaurant 와 OneToOne 참조 했으니까 id만 있어도 되지 않을까..?
+    @OneToOne(mappedBy = "manager")
+    private RestaurantEntity restaurant;
 
     @CreatedDate
     private LocalDateTime createdAt;
