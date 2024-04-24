@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/manager")
 @RequiredArgsConstructor
-
 public class ManagerController {
 
     @PostMapping("/signup")
