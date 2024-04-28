@@ -12,9 +12,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
+    private final JwtUtil jwtUtil;
 
-    public LoginFilter(AuthenticationManager authenticationManager) {
+    public LoginFilter(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
+        this.jwtUtil = jwtUtil;
     }
 
     /**

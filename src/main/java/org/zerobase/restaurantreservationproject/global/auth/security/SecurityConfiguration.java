@@ -17,9 +17,11 @@ import org.zerobase.restaurantreservationproject.global.role.PersonRole;
 public class SecurityConfiguration {
 
     private final AuthenticationConfiguration authenticationConfiguration;
+    private final JwtUtil jwtUtil;
 
-    public SecurityConfiguration(AuthenticationConfiguration authenticationConfiguration) {
+    public SecurityConfiguration(AuthenticationConfiguration authenticationConfiguration, JwtUtil jwtUtil) {
         this.authenticationConfiguration = authenticationConfiguration;
+        this.jwtUtil = jwtUtil;
     }
 
     @Bean
@@ -42,7 +44,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/manager/**").hasAuthority(PersonRole.ROLE_MANAGER.toString()));
 
         // 필터 추가
-        http.addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration)), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         // 세션 stateless 설정
         http.sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
