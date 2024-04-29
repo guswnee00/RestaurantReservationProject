@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.zerobase.restaurantreservationproject.domain.manager.dto.Manager;
+import org.zerobase.restaurantreservationproject.domain.manager.dto.ManagerDto;
+import org.zerobase.restaurantreservationproject.domain.manager.service.ManagerService;
 
 @Slf4j
 @RestController
@@ -15,18 +15,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ManagerController {
 
+    private final ManagerService managerService;
+
+    /**
+     * 매장 점장님 회원가입
+     */
     @PostMapping("/signup")
-    public ResponseEntity<?> managerSignup() {
-        return ResponseEntity.ok();
+    public ResponseEntity<?> managerSignup(@RequestBody Manager.Request request) {
+        ManagerDto managerDto = managerService.signup(request);
+        return ResponseEntity.ok(Manager.Response.fromDto(managerDto));
     }
 
-    @PreAuthorize("hasRole('WRITE')")
+    @PreAuthorize("hasRole('ROLE_MANAGER')")
     @PostMapping("/restaurant-registration")
     public ResponseEntity<?> registerRestaurant() {
         return ResponseEntity.ok();
     }
 
-    @PreAuthorize("hasRole('WRITE')")
+    @PreAuthorize("hasRole('ROLE_MANAGER')")
     @PutMapping("/restaurant-modification/{managerId}")
     public ResponseEntity<?> modifyRestaurant() {
         return ResponseEntity.ok();
