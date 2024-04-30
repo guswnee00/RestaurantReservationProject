@@ -18,15 +18,13 @@ public class User {
         private String userName;
         private String phoneNumber;
 
-        private PersonRole role;
-
         public static UserEntity toEntity(Request request) {
             return UserEntity.builder()
                     .userId(request.getUserId())
                     .password(request.getPassword())
                     .userName(request.getUserName())
                     .phoneNumber(request.getPhoneNumber())
-                    .role(PersonRole.USER.toString())
+                    .role(PersonRole.ROLE_USER.toString())
                     .createdAt(LocalDateTime.now())
                     .build();
         }
