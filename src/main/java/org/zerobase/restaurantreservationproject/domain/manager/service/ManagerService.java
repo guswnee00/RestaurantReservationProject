@@ -8,6 +8,9 @@ import org.zerobase.restaurantreservationproject.domain.manager.dto.Manager;
 import org.zerobase.restaurantreservationproject.domain.manager.dto.ManagerDto;
 import org.zerobase.restaurantreservationproject.domain.manager.entity.ManagerEntity;
 import org.zerobase.restaurantreservationproject.domain.manager.repository.ManagerRepository;
+import org.zerobase.restaurantreservationproject.global.error.CustomException;
+
+import static org.zerobase.restaurantreservationproject.global.error.CustomErrorCode.ID_IS_ALREADY_IN_USE;
 
 @Service
 @RequiredArgsConstructor
@@ -17,11 +20,9 @@ public class ManagerService {
     private final ManagerRepository managerRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    // TODO
-    //  - 사용자 exception 으로 교체
     public ManagerDto signup(Manager.Request request) {
         if (managerRepository.existsByManagerId(request.getManagerId())) {
-            throw new RuntimeException("이미 존재하는 아이디 입니다.");
+            throw new CustomException(ID_IS_ALREADY_IN_USE);
         }
 
         request.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
