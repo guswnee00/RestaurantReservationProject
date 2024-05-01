@@ -23,12 +23,16 @@ public class UserService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public UserDto signup(User.Request request) {
-        if (userRepository.existsByUserId(request.getUserId())) {
+
+        // 같은 유저이름(아이디)가 있다면 예외 발생
+        if (userRepository.existsByUsername(request.getUsername())) {
             throw new CustomException(ID_IS_ALREADY_IN_USE);
         }
 
+        // 비밀번호 encode
         request.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
 
+        // 사용자 정보 저장
         UserEntity userEntity = userRepository.save(User.Request.toEntity(request));
 
         return UserDto.toDto(userEntity);
