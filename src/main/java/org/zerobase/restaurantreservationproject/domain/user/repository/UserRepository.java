@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.zerobase.restaurantreservationproject.domain.user.entity.UserEntity;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, String> {
-    boolean existsByUserId(String userId);
-    UserEntity findByUserId(String userId);
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
+    boolean existsByUsername(String username);
+    UserEntity findByUsername(String username);
 }
