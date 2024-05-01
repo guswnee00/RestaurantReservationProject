@@ -13,10 +13,10 @@ import java.time.LocalDateTime;
 @Setter
 public class ManagerDto {
 
-    private String managerId;
-    private String password;
+    private Long id;
 
-    private String managerName;
+    private String username;
+    private String password;
     private String phoneNumber;
 
     private String role;
@@ -28,13 +28,15 @@ public class ManagerDto {
 
     public static ManagerDto toDto(ManagerEntity entity) {
         return ManagerDto.builder()
-                .managerId(entity.getManagerId())
+                .id(entity.getId())
+                .username(entity.getUsername())
                 .password(entity.getPassword())
-                .managerName(entity.getManagerName())
                 .phoneNumber(entity.getPhoneNumber())
                 .role(entity.getRole())
+                .restaurant(entity.getRestaurant())
                 .createdAt(entity.getCreatedAt())
                 .modifiedAt(entity.getModifiedAt())
                 .build();
     }
+
 }

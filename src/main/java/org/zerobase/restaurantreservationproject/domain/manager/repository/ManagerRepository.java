@@ -5,6 +5,10 @@ import org.springframework.stereotype.Repository;
 import org.zerobase.restaurantreservationproject.domain.manager.entity.ManagerEntity;
 
 @Repository
-public interface ManagerRepository extends JpaRepository<ManagerEntity, String> {
+public interface ManagerRepository extends JpaRepository<ManagerEntity, Long> {
+
+    boolean existsByUsername(String username);
+
+    ManagerEntity findByUsername(String username);
 
 }

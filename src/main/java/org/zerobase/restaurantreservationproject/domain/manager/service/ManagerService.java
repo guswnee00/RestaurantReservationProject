@@ -21,14 +21,19 @@ public class ManagerService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public ManagerDto signup(Manager.Request request) {
-        if (managerRepository.existsByManagerId(request.getManagerId())) {
+
+        // 같은 유저이름(아이디)가 있다면 예외 발생
+        if (managerRepository.existsByUsername(request.getUsername())) {
             throw new CustomException(ID_IS_ALREADY_IN_USE);
         }
 
+        // 비밀번호 encode
         request.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
 
+        // 사용자 정보 저장
         ManagerEntity managerEntity = managerRepository.save(Manager.Request.toEntity(request));
 
         return ManagerDto.toDto(managerEntity);
     }
+
 }

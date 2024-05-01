@@ -12,25 +12,20 @@ public class Manager {
     @Setter
     @AllArgsConstructor
     public static class Request {
-        private String managerId;
+
+        private String username;
         private String password;
-
-        private String managerName;
         private String phoneNumber;
-
-        private PersonRole role;
 
         public static ManagerEntity toEntity(Request request) {
             return ManagerEntity.builder()
-                    .managerId(request.getManagerId())
+                    .username(request.getUsername())
                     .password(request.getPassword())
-                    .managerName(request.getManagerName())
                     .phoneNumber(request.getPhoneNumber())
-                    .role(PersonRole.MANAGER.toString())
+                    .role(PersonRole.ROLE_MANAGER.toString())
                     .createdAt(LocalDateTime.now())
                     .build();
         }
-
 
     }
 
@@ -40,9 +35,8 @@ public class Manager {
     @NoArgsConstructor
     @Builder
     public static class Response {
-        private String managerId;
 
-        private String managerName;
+        private String username;
         private String phoneNumber;
 
         private String role;
@@ -51,12 +45,12 @@ public class Manager {
 
         public static Response fromDto(ManagerDto dto) {
             return Response.builder()
-                    .managerId(dto.getManagerId())
-                    .managerName(dto.getManagerName())
+                    .username(dto.getUsername())
                     .phoneNumber(dto.getPhoneNumber())
                     .role(dto.getRole())
                     .createdAt(dto.getCreatedAt())
                     .build();
         }
     }
+
 }
