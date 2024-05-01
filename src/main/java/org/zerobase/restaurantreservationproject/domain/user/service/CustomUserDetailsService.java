@@ -12,6 +12,7 @@ import org.zerobase.restaurantreservationproject.domain.user.repository.UserRepo
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
+
     private final UserRepository userRepository;
 
     @Override

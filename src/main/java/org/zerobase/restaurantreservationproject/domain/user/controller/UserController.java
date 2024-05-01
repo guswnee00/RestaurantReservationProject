@@ -27,4 +27,5 @@ public class UserController {
         UserDto userDto = userService.signup(request);
         return ResponseEntity.ok(User.Response.fromDto(userDto));
     }
+
 }

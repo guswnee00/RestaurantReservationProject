@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class UserDto {
+
     private Long id ;
 
     private String username;
@@ -33,4 +34,5 @@ public class UserDto {
                 .modifiedAt(entity.getModifiedAt())
                 .build();
     }
+
 }
