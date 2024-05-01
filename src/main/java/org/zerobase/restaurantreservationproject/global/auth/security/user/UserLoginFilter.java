@@ -1,4 +1,4 @@
-package org.zerobase.restaurantreservationproject.global.auth.security;
+package org.zerobase.restaurantreservationproject.global.auth.security.user;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,12 +9,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-public class LoginFilter extends UsernamePasswordAuthenticationFilter {
+public class UserLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
-    private final JwtUtil jwtUtil;
+    private final UserJwtUtil jwtUtil;
 
-    public LoginFilter(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
+    public UserLoginFilter(AuthenticationManager authenticationManager, UserJwtUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
     }

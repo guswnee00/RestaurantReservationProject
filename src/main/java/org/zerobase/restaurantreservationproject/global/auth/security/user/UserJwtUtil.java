@@ -1,4 +1,4 @@
-package org.zerobase.restaurantreservationproject.global.auth.security;
+package org.zerobase.restaurantreservationproject.global.auth.security.user;
 
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,14 +10,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Component
-public class JwtUtil {
+public class UserJwtUtil {
 
     private SecretKey secretKey;
 
     /**
      * secretKey 암호화
      */
-    public JwtUtil(@Value("${spring.jwt.secret}") String secret) {
+    public UserJwtUtil(@Value("${spring.jwt.secret}") String secret) {
         secretKey = new SecretKeySpec(
                             secret.getBytes(StandardCharsets.UTF_8),
                             Jwts.SIG.HS256.key().build().getAlgorithm());
@@ -29,7 +29,7 @@ public class JwtUtil {
     public String getUsername(String token) {
         return Jwts.parser().verifyWith(secretKey).build()
                 .parseSignedClaims(token).getPayload()
-                .get("username", String.class);
+                .get("userName", String.class);
     }
 
     public String getRole(String token) {
@@ -49,7 +49,7 @@ public class JwtUtil {
      */
     public String createJwt(String username, String role, Long expired) {
         return Jwts.builder()
-                .claim("username", username)
+                .claim("userName", username)
                 .claim("role", role)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expired))

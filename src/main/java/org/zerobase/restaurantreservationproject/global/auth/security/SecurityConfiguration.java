@@ -10,16 +10,17 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.zerobase.restaurantreservationproject.global.role.PersonRole;
+import org.zerobase.restaurantreservationproject.global.auth.security.user.UserJwtUtil;
+import org.zerobase.restaurantreservationproject.global.auth.security.user.UserLoginFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
     private final AuthenticationConfiguration authenticationConfiguration;
-    private final JwtUtil jwtUtil;
+    private final UserJwtUtil jwtUtil;
 
-    public SecurityConfiguration(AuthenticationConfiguration authenticationConfiguration, JwtUtil jwtUtil) {
+    public SecurityConfiguration(AuthenticationConfiguration authenticationConfiguration, UserJwtUtil jwtUtil) {
         this.authenticationConfiguration = authenticationConfiguration;
         this.jwtUtil = jwtUtil;
     }
@@ -39,12 +40,11 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests((auth) -> auth
                 // TODO
                 //  - 회원가입/로그인 페이지는 누구나 접근 가능
-                .requestMatchers("/").permitAll()
-                // manager 페이지는 점장님만 접근 가능
-                .requestMatchers("/manager/**").hasAuthority(PersonRole.ROLE_MANAGER.toString()));
+                .requestMatchers("/user/**").permitAll()
+                .anyRequest().authenticated());
 
         // 필터 추가
-        http.addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAt(new UserLoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         // 세션 stateless 설정
         http.sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

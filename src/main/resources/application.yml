@@ -1,8 +1,14 @@
 spring:
-  data:
-    redis:
-      host: localhost
-      port: 6397
+  datasource:
+    url: jdbc:mysql://localhost:3306/restaurant
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: CHAhy0630!
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
 
   jwt:
     secret: U3ByaW5nSnd0U2VjcmV0S2V5Rm9yUmVzdGF1cmFudFJlc2VydmF0aW9uUHJvamVjdAo=
