@@ -12,17 +12,15 @@ public class User {
     @Setter
     @AllArgsConstructor
     public static class Request {
-        private String userId;
-        private String password;
 
-        private String userName;
+        private String username;
+        private String password;
         private String phoneNumber;
 
         public static UserEntity toEntity(Request request) {
             return UserEntity.builder()
-                    .userId(request.getUserId())
+                    .username(request.getUsername())
                     .password(request.getPassword())
-                    .userName(request.getUserName())
                     .phoneNumber(request.getPhoneNumber())
                     .role(PersonRole.ROLE_USER.toString())
                     .createdAt(LocalDateTime.now())
@@ -36,9 +34,8 @@ public class User {
     @NoArgsConstructor
     @Builder
     public static class Response {
-        private String userId;
 
-        private String userName;
+        private String username;
         private String phoneNumber;
 
         private String role;
@@ -47,8 +44,7 @@ public class User {
 
         public static Response fromDto(UserDto dto) {
             return Response.builder()
-                    .userId(dto.getUserId())
-                    .userName(dto.getUserName())
+                    .username(dto.getUsername())
                     .phoneNumber(dto.getPhoneNumber())
                     .role(dto.getRole())
                     .createdAt(dto.getCreatedAt())

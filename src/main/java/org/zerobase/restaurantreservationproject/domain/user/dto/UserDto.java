@@ -11,10 +11,10 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class UserDto {
-    private String userId;
-    private String password;
+    private Long id ;
 
-    private String userName;
+    private String username;
+    private String password;
     private String phoneNumber;
 
     private String role;
@@ -24,9 +24,9 @@ public class UserDto {
 
     public static UserDto toDto(UserEntity entity) {
         return UserDto.builder()
-                .userId(entity.getUserId())
+                .id(entity.getId())
+                .username(entity.getUsername())
                 .password(entity.getPassword())
-                .userName(entity.getUsername())
                 .phoneNumber(entity.getPhoneNumber())
                 .role(entity.getRole())
                 .createdAt(entity.getCreatedAt())
