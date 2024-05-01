@@ -1,19 +1,12 @@
 package org.zerobase.restaurantreservationproject.domain.user.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
 
 @Builder
 @Getter
@@ -22,12 +15,14 @@ import java.util.Collection;
 @AllArgsConstructor
 @Entity(name = "USER")
 @EntityListeners(AuditingEntityListener.class)
-public class UserEntity implements UserDetails {
-    @Id
-    private String userId;
-    private String password;
+public class UserEntity {
 
-    private String userName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String username;    // 사용자 아이디
+    private String password;
     private String phoneNumber;
 
     private String role;
@@ -37,35 +32,4 @@ public class UserEntity implements UserDetails {
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        return authorities;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.userId;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
 }
