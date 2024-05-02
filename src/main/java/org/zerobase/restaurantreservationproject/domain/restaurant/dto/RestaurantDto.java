@@ -1,9 +1,13 @@
 package org.zerobase.restaurantreservationproject.domain.restaurant.dto;
 
 import lombok.*;
+import org.zerobase.restaurantreservationproject.domain.manager.entity.ManagerEntity;
+import org.zerobase.restaurantreservationproject.domain.reservation.entity.ReservationEntity;
 import org.zerobase.restaurantreservationproject.domain.restaurant.entity.RestaurantEntity;
+import org.zerobase.restaurantreservationproject.domain.review.entity.ReviewEntity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,7 +17,8 @@ import java.time.LocalDateTime;
 public class RestaurantDto {
 
     private Long id;
-    private String managerId;
+
+    private ManagerEntity manager;
 
     private String restaurantName;
     private String restaurantAddress;
@@ -22,10 +27,9 @@ public class RestaurantDto {
     private double lat;
     private double lnt;
 
-    // TODO
-    //  - 리뷰 엔티티 추가
-    //private double reviewGrade;
-    //private Long reviewAmount;
+    private List<ReservationEntity> reservations;
+
+    private List<ReviewEntity> reviews;
 
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
@@ -33,16 +37,17 @@ public class RestaurantDto {
     public static RestaurantDto toDto(RestaurantEntity entity) {
         return RestaurantDto.builder()
                 .id(entity.getId())
-                .managerId(entity.getManagerId())
+                .manager(entity.getManager())
                 .restaurantName(entity.getRestaurantName())
                 .restaurantAddress(entity.getRestaurantAddress())
                 .restaurantDetail(entity.getRestaurantDetail())
                 .lat(entity.getLat())
                 .lnt(entity.getLnt())
-                //.reviewGrade(entity.getReviewGrade())
-                //.reviewAmount(entity.getReviewAmount())
+                .reservations(entity.getReservations())
+                .reviews(entity.getReviews())
                 .createdAt(entity.getCreatedAt())
                 .modifiedAt(entity.getModifiedAt())
                 .build();
     }
+
 }

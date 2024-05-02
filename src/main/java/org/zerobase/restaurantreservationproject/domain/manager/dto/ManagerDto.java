@@ -2,9 +2,11 @@ package org.zerobase.restaurantreservationproject.domain.manager.dto;
 
 import lombok.*;
 import org.zerobase.restaurantreservationproject.domain.manager.entity.ManagerEntity;
+import org.zerobase.restaurantreservationproject.domain.reservation.entity.ReservationEntity;
 import org.zerobase.restaurantreservationproject.domain.restaurant.entity.RestaurantEntity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,6 +25,8 @@ public class ManagerDto {
 
     private RestaurantEntity restaurant;
 
+    private List<ReservationEntity> reservations;
+
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
@@ -34,6 +38,7 @@ public class ManagerDto {
                 .phoneNumber(entity.getPhoneNumber())
                 .role(entity.getRole())
                 .restaurant(entity.getRestaurant())
+                .reservations(entity.getReservations())
                 .createdAt(entity.getCreatedAt())
                 .modifiedAt(entity.getModifiedAt())
                 .build();
