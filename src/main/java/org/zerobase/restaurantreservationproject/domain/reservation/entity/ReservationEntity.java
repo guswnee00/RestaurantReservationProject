@@ -1,10 +1,15 @@
 package org.zerobase.restaurantreservationproject.domain.reservation.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.zerobase.restaurantreservationproject.domain.manager.entity.ManagerEntity;
+import org.zerobase.restaurantreservationproject.domain.reservation.status.ReservationStatus;
 import org.zerobase.restaurantreservationproject.domain.restaurant.entity.RestaurantEntity;
 import org.zerobase.restaurantreservationproject.domain.user.entity.UserEntity;
+
+import java.time.LocalDateTime;
 
 @Builder
 @Getter
@@ -33,5 +38,13 @@ public class ReservationEntity {
     @JoinColumn(name = "restaurant_id")
     private RestaurantEntity restaurant;
 
-    private Integer
+    private Integer headCount;      // 매장 이용 인원 수
+
+    private ReservationStatus status;
+    @LastModifiedDate
+    private LocalDateTime statusModifiedAt;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd HH:mm")
+    private LocalDateTime reservationTime;
+
 }
