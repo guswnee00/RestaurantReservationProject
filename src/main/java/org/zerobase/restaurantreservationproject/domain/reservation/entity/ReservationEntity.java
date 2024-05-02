@@ -40,6 +40,7 @@ public class ReservationEntity {
 
     private Integer headCount;      // 매장 이용 인원 수
 
+    @Enumerated(EnumType.STRING)
     private ReservationStatus status;
     @LastModifiedDate
     private LocalDateTime statusModifiedAt;
