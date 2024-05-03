@@ -3,11 +3,8 @@ package org.zerobase.restaurantreservationproject.domain.reservation.dto;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.*;
-import org.zerobase.restaurantreservationproject.domain.manager.entity.ManagerEntity;
 import org.zerobase.restaurantreservationproject.domain.reservation.entity.ReservationEntity;
 import org.zerobase.restaurantreservationproject.global.enumset.ReservationStatus;
-import org.zerobase.restaurantreservationproject.domain.restaurant.entity.RestaurantEntity;
-import org.zerobase.restaurantreservationproject.domain.user.entity.UserEntity;
 
 import java.time.LocalDateTime;
 
@@ -18,13 +15,9 @@ import java.time.LocalDateTime;
 @Setter
 public class ReservationDto {
 
-    private Long id;
-
-    private UserEntity user;
-
-    private ManagerEntity manager;
-
-    private RestaurantEntity restaurant;
+    private String username;
+    private String managerName;
+    private String restaurantName;
 
     private Integer headCount;
 
@@ -36,10 +29,9 @@ public class ReservationDto {
 
     public static ReservationDto toDto(ReservationEntity entity) {
         return ReservationDto.builder()
-                .id(entity.getId())
-                .user(entity.getUser())
-                .manager(entity.getManager())
-                .restaurant(entity.getRestaurant())
+                .username(entity.getUser().getUsername())
+                .managerName(entity.getManager().getUsername())
+                .restaurantName(entity.getRestaurant().getRestaurantName())
                 .headCount(entity.getHeadCount())
                 .status(entity.getStatus())
                 .statusModifiedAt(entity.getStatusModifiedAt())

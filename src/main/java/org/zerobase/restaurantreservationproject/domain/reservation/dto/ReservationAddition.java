@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class Reservation {
+public class ReservationAddition {
 
     @Getter
     @Setter
@@ -51,11 +51,11 @@ public class Reservation {
 
         public static Response fromDto(ReservationDto dto) {
             return Response.builder()
-                    .username(dto.getUser().getUsername())
-                    .restaurantName(dto.getRestaurant().getRestaurantName())
+                    .username(dto.getUsername())
+                    .restaurantName(dto.getRestaurantName())
                     .headCount(dto.getHeadCount())
                     .status(dto.getStatus())
-                    .statusModifiedAt(LocalDateTime.now())
+                    .statusModifiedAt(dto.getStatusModifiedAt())
                     .reservationTime(dto.getReservationTime())
                     .build();
         }
