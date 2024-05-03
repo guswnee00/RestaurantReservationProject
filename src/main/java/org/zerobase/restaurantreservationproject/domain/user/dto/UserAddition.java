@@ -2,11 +2,11 @@ package org.zerobase.restaurantreservationproject.domain.user.dto;
 
 import lombok.*;
 import org.zerobase.restaurantreservationproject.domain.user.entity.UserEntity;
-import org.zerobase.restaurantreservationproject.global.role.PersonRole;
+import org.zerobase.restaurantreservationproject.global.enumset.PersonRole;
 
 import java.time.LocalDateTime;
 
-public class User {
+public class UserAddition {
 
     @Getter
     @Setter
@@ -23,7 +23,6 @@ public class User {
                     .password(request.getPassword())
                     .phoneNumber(request.getPhoneNumber())
                     .role(PersonRole.ROLE_USER.toString())
-                    .createdAt(LocalDateTime.now())
                     .build();
         }
     }

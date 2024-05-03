@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.zerobase.restaurantreservationproject.domain.user.dto.User;
+import org.zerobase.restaurantreservationproject.domain.user.dto.UserAddition;
 import org.zerobase.restaurantreservationproject.domain.user.dto.UserDto;
 import org.zerobase.restaurantreservationproject.domain.user.entity.UserEntity;
 import org.zerobase.restaurantreservationproject.domain.user.repository.UserRepository;
@@ -22,7 +22,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserDto signup(User.Request request) {
+    public UserDto signup(UserAddition.Request request) {
 
         // 같은 유저이름(아이디)가 있다면 예외 발생
         if (userRepository.existsByUsername(request.getUsername())) {
@@ -33,7 +33,7 @@ public class UserService {
         request.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
 
         // 사용자 정보 저장
-        UserEntity userEntity = userRepository.save(User.Request.toEntity(request));
+        UserEntity userEntity = userRepository.save(UserAddition.Request.toEntity(request));
 
         return UserDto.toDto(userEntity);
     }
