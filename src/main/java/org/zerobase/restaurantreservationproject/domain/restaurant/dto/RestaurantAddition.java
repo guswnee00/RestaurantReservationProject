@@ -16,7 +16,7 @@ public class RestaurantAddition {
     @Builder
     public static class Request {
 
-        private String managerUsername;
+        private String managerName;
 
         private String restaurantName;
         private String restaurantAddress;
@@ -28,7 +28,7 @@ public class RestaurantAddition {
         public static RestaurantEntity toEntity(Request request, ManagerRepository managerRepository) {
 
             // managerUsername(사장님아이디)로 managerEntity 찾기
-            ManagerEntity managerEntity = managerRepository.findByUsername(request.getManagerUsername());
+            ManagerEntity managerEntity = managerRepository.findByUsername(request.getManagerName());
 
             return RestaurantEntity.builder()
                     .manager(managerEntity)
@@ -48,7 +48,7 @@ public class RestaurantAddition {
     @Builder
     public static class Response {
 
-        private String managerUsername;
+        private String managerName;
 
         private String restaurantName;
         private String restaurantAddress;
@@ -58,7 +58,7 @@ public class RestaurantAddition {
 
         public static Response fromDto(RestaurantDto dto) {
             return Response.builder()
-                    .managerUsername(dto.getManager().getUsername())
+                    .managerName(dto.getManagerName())
                     .restaurantName(dto.getRestaurantName())
                     .restaurantAddress(dto.getRestaurantAddress())
                     .restaurantDetail(dto.getRestaurantDetail())

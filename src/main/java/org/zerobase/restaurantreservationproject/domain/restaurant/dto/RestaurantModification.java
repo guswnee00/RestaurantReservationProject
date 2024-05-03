@@ -1,6 +1,7 @@
 package org.zerobase.restaurantreservationproject.domain.restaurant.dto;
 
 import lombok.*;
+
 import java.time.LocalDateTime;
 
 public class RestaurantModification {
@@ -10,7 +11,7 @@ public class RestaurantModification {
     @AllArgsConstructor
     public static class Request {
 
-        private String managerUsername;
+        private String managerName;
 
         private String restaurantName;
         private String restaurantAddress;
@@ -28,7 +29,7 @@ public class RestaurantModification {
     @Builder
     public static class Response {
 
-        private String managerUsername;
+        private String managerName;
 
         private String restaurantName;
         private String restaurantAddress;
@@ -38,7 +39,7 @@ public class RestaurantModification {
 
         public static Response fromDto(RestaurantDto dto) {
             return Response.builder()
-                    .managerUsername(dto.getManager().getUsername())
+                    .managerName(dto.getManagerName())
                     .restaurantName(dto.getRestaurantName())
                     .restaurantAddress(dto.getRestaurantAddress())
                     .restaurantDetail(dto.getRestaurantDetail())
