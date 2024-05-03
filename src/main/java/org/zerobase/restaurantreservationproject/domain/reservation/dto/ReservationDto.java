@@ -5,7 +5,7 @@ import jakarta.persistence.Enumerated;
 import lombok.*;
 import org.zerobase.restaurantreservationproject.domain.manager.entity.ManagerEntity;
 import org.zerobase.restaurantreservationproject.domain.reservation.entity.ReservationEntity;
-import org.zerobase.restaurantreservationproject.domain.reservation.status.ReservationStatus;
+import org.zerobase.restaurantreservationproject.global.enumset.ReservationStatus;
 import org.zerobase.restaurantreservationproject.domain.restaurant.entity.RestaurantEntity;
 import org.zerobase.restaurantreservationproject.domain.user.entity.UserEntity;
 

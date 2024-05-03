@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.*;
-import org.zerobase.restaurantreservationproject.domain.reservation.status.ReservationStatus;
+import org.zerobase.restaurantreservationproject.global.enumset.ReservationStatus;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
