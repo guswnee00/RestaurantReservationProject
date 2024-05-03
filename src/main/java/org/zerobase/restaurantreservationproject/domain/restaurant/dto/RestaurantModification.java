@@ -10,6 +10,8 @@ public class RestaurantModification {
     @AllArgsConstructor
     public static class Request {
 
+        private String managerUsername;
+
         private String restaurantName;
         private String restaurantAddress;
         private String restaurantDetail;
@@ -25,7 +27,8 @@ public class RestaurantModification {
     @NoArgsConstructor
     @Builder
     public static class Response {
-        private String managerId;
+
+        private String managerUsername;
 
         private String restaurantName;
         private String restaurantAddress;
@@ -35,7 +38,7 @@ public class RestaurantModification {
 
         public static Response fromDto(RestaurantDto dto) {
             return Response.builder()
-                    .managerId(dto.getManagerId())
+                    .managerUsername(dto.getManager().getUsername())
                     .restaurantName(dto.getRestaurantName())
                     .restaurantAddress(dto.getRestaurantAddress())
                     .restaurantDetail(dto.getRestaurantDetail())
@@ -43,4 +46,5 @@ public class RestaurantModification {
                     .build();
         }
     }
+
 }

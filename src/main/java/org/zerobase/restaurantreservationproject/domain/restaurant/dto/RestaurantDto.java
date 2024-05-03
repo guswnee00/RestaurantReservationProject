@@ -26,6 +26,7 @@ public class RestaurantDto {
 
     private double lat;
     private double lnt;
+    private double distance;
 
     private List<ReservationEntity> reservations;
 

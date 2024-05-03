@@ -12,8 +12,11 @@ public class RestaurantAddition {
     @Getter
     @Setter
     @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
     public static class Request {
-        private String managerId;
+
+        private String managerUsername;
 
         private String restaurantName;
         private String restaurantAddress;
@@ -22,22 +25,18 @@ public class RestaurantAddition {
         private double lat;
         private double lnt;
 
-        // TODO
-        //  - error code 따로 만들어서 교체
-        public static RestaurantEntity toEntity(Request request, ManagerRepository repository) {
-            ManagerEntity manager = repository.findById(request.getManagerId())
-                    .orElseThrow(() -> new IllegalArgumentException("Manager not found"));
+        public static RestaurantEntity toEntity(Request request, ManagerRepository managerRepository) {
+
+            // managerUsername(사장님아이디)로 managerEntity 찾기
+            ManagerEntity managerEntity = managerRepository.findByUsername(request.getManagerUsername());
 
             return RestaurantEntity.builder()
-                    .managerId(request.getManagerId())
-                    .manager(manager)
+                    .manager(managerEntity)
                     .restaurantName(request.getRestaurantName())
                     .restaurantAddress(request.getRestaurantAddress())
                     .restaurantDetail(request.getRestaurantDetail())
                     .lat(request.getLat())
                     .lnt(request.getLnt())
-                    //.reviewGrade(0.0)
-                    //.reviewAmount(0L)
                     .build();
         }
     }
@@ -48,7 +47,8 @@ public class RestaurantAddition {
     @NoArgsConstructor
     @Builder
     public static class Response {
-        private String managerId;
+
+        private String managerUsername;
 
         private String restaurantName;
         private String restaurantAddress;
@@ -58,7 +58,7 @@ public class RestaurantAddition {
 
         public static Response fromDto(RestaurantDto dto) {
             return Response.builder()
-                    .managerId(dto.getManagerId())
+                    .managerUsername(dto.getManager().getUsername())
                     .restaurantName(dto.getRestaurantName())
                     .restaurantAddress(dto.getRestaurantAddress())
                     .restaurantDetail(dto.getRestaurantDetail())
@@ -66,4 +66,5 @@ public class RestaurantAddition {
                     .build();
         }
     }
+
 }
