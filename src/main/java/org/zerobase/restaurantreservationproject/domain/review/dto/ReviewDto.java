@@ -1,9 +1,7 @@
 package org.zerobase.restaurantreservationproject.domain.review.dto;
 
 import lombok.*;
-import org.zerobase.restaurantreservationproject.domain.restaurant.entity.RestaurantEntity;
 import org.zerobase.restaurantreservationproject.domain.review.entity.ReviewEntity;
-import org.zerobase.restaurantreservationproject.domain.user.entity.UserEntity;
 
 import java.time.LocalDateTime;
 
@@ -14,13 +12,10 @@ import java.time.LocalDateTime;
 @Setter
 public class ReviewDto {
 
-    private Long id;
+    private String username;
 
-    private UserEntity user;
-
-    private RestaurantEntity restaurant;
-
-    private double starRating;
+    private String restaurantName;
+    private String starRating;
     private String comment;
 
     private LocalDateTime createdAt;
@@ -28,10 +23,9 @@ public class ReviewDto {
 
     public static ReviewDto toDto(ReviewEntity entity) {
         return ReviewDto.builder()
-                .id(entity.getId())
-                .user(entity.getUser())
-                .restaurant(entity.getRestaurant())
-                .starRating(entity.getStarRating())
+                .username(entity.getUser().getUsername())
+                .restaurantName(entity.getRestaurant().getRestaurantName())
+                .starRating(String.format("%.1f", entity.getStarRating()))
                 .comment(entity.getComment())
                 .createdAt(entity.getCreatedAt())
                 .modifiedAt(entity.getModifiedAt())
