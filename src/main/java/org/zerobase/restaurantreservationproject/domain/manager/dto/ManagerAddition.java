@@ -2,11 +2,11 @@ package org.zerobase.restaurantreservationproject.domain.manager.dto;
 
 import lombok.*;
 import org.zerobase.restaurantreservationproject.domain.manager.entity.ManagerEntity;
-import org.zerobase.restaurantreservationproject.global.role.PersonRole;
+import org.zerobase.restaurantreservationproject.global.enumset.PersonRole;
 
 import java.time.LocalDateTime;
 
-public class Manager {
+public class ManagerAddition {
 
     @Getter
     @Setter
@@ -45,7 +45,7 @@ public class Manager {
 
         public static Response fromDto(ManagerDto dto) {
             return Response.builder()
-                    .username(dto.getUsername())
+                    .username(dto.getManagerName())
                     .phoneNumber(dto.getPhoneNumber())
                     .role(dto.getRole())
                     .createdAt(dto.getCreatedAt())
