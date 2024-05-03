@@ -1,4 +1,4 @@
-package org.zerobase.restaurantreservationproject.global.role;
+package org.zerobase.restaurantreservationproject.global.enumset;
 
 public enum PersonRole {
     ROLE_MANAGER,    // 점장님
