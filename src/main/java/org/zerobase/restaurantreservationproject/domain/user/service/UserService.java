@@ -22,6 +22,13 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    /**
+     * 유저 회원가입
+     *      1. 같은 이름 있는지 확인
+     *      2. 비밀번호 encode
+     *      3. 유저 정보 repo 에 저장
+     *      4. 유저 dto 반환
+     */
     public UserDto signup(UserAddition.Request request) {
 
         // 같은 유저이름(아이디)가 있다면 예외 발생
