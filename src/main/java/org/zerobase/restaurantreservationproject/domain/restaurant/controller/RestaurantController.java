@@ -29,7 +29,7 @@ public class RestaurantController {
      */
     @GetMapping("/restaurant/list")
     public ResponseEntity<?> getRestaurantList(@RequestParam RestaurantSortingMethod method,
-                                               @RequestParam(defaultValue = "0") int page
+                                               @RequestParam(defaultValue = "1") int page
     ) {
         Page<RestaurantDetail> restaurantDetailPage = restaurantService.getRestaurantPage(method, page);
         return ResponseEntity.ok(restaurantDetailPage);
