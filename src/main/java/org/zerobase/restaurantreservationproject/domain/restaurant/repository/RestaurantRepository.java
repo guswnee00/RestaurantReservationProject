@@ -23,24 +23,24 @@ public interface RestaurantRepository extends JpaRepository<RestaurantEntity, Lo
     Double findRestaurantByDistance(double lat, double lnt, String restaurantName);
 
     // 내 위치와 가까운 거리순
-    @Query(value = "SELECT *, " +
-            "(6371 * acos(cos(radians(:lat)) * cos(radians(lat)) " +
-            "* cos(radians(lnt) - radians(:lnt)) + sin(radians(:lat)) " +
-            "* sin(radians(lat)))) AS distance " +
-            "FROM Restaurant " +
-            "ORDER BY distance ASC",
+    @Query(value = " SELECT *, " +
+            " (6371 * acos(cos(radians(:lat)) * cos(radians(lat)) " +
+            " * cos(radians(lnt) - radians(:lnt)) + sin(radians(:lat)) " +
+            " * sin(radians(lat)))) AS distance " +
+            " FROM Restaurant " +
+            " ORDER BY distance ASC ",
             countQuery = "SELECT count(*) FROM Restaurant",
             nativeQuery = true)
     Page<RestaurantEntity> findRestaurantsNearby(double lat, double lnt, Pageable pageable);
 
     // 평균 별점 높은 순
-    @Query("SELECT r FROM RESTAURANT r LEFT JOIN r.reviews rev GROUP BY r.id ORDER BY AVG(rev.starRating) DESC")
+    @Query(" SELECT r FROM RESTAURANT r LEFT JOIN r.reviews rev GROUP BY r.id ORDER BY AVG(rev.starRating) DESC ")
     Page<RestaurantEntity> findRestaurantsOrderByAverageStarRating(Pageable pageable);
 
     // 레스토랑 이름 가나다순
     Page<RestaurantEntity> findAllByOrderByRestaurantNameAsc(Pageable pageable);
 
     // 리뷰 개수 많은순
-    @Query("SELECT r FROM RESTAURANT r LEFT JOIN r.reviews rev GROUP BY r.id ORDER BY COUNT(rev) DESC")
+    @Query(" SELECT r FROM RESTAURANT r LEFT JOIN r.reviews rev GROUP BY r.id ORDER BY COUNT(rev) DESC ")
     Page<RestaurantEntity> findRestaurantsOrderByReviewCountDesc(Pageable pageable);
 }
