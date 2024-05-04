@@ -35,6 +35,4 @@ public class RestaurantController {
         return ResponseEntity.ok(restaurantDetailPage);
     }
 
-    // TODO - 레스토랑 디테일에 있는 리뷰리스트를 보여주는 부분도 구현
-
 }
