@@ -29,7 +29,7 @@ public class UserEntity {
 
     private String role;
 
-    // 리뷰와 일대다 관계(사용자는 여러개의 예약을 만들 수 있음 - 예약이 주인엔티티)
+    // 예약과 일대다 관계(사용자는 여러개의 예약을 만들 수 있음 - 예약이 주인엔티티)
     @OneToMany(mappedBy = "user")
     private List<ReservationEntity> reservations;
 
