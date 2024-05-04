@@ -8,10 +8,13 @@ import org.zerobase.restaurantreservationproject.global.enumset.SortRestaurant;
 @Builder
 @Getter
 @Setter
-public class RestaurantList {
+public class RestaurantSortingMethod {
 
     private String restaurantName;
+
     private SortRestaurant sort;
-    private double distance;
+
+    private double lat;
+    private double lnt;
 
 }

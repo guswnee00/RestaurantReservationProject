@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.util.StringUtils;
 import org.zerobase.restaurantreservationproject.domain.manager.entity.ManagerEntity;
 import org.zerobase.restaurantreservationproject.domain.reservation.entity.ReservationEntity;
+import org.zerobase.restaurantreservationproject.domain.restaurant.dto.RestaurantModification;
 import org.zerobase.restaurantreservationproject.domain.review.entity.ReviewEntity;
 
 import java.time.LocalDateTime;
@@ -48,5 +50,22 @@ public class RestaurantEntity {
     private LocalDateTime createdAt;
     @LastModifiedDate
     private LocalDateTime modifiedAt;
+
+    public void modify(RestaurantModification.Request request) {
+        if(StringUtils.hasText(request.getRestaurantName())) {
+            this.restaurantName = request.getRestaurantName();
+        }
+        if(StringUtils.hasText(request.getRestaurantAddress())) {
+            this.restaurantAddress = request.getRestaurantAddress();
+        }
+        if(StringUtils.hasText(request.getRestaurantDetail())) {
+            this.restaurantDetail = request.getRestaurantDetail();
+        }
+        if(request.getLat() != 0 && request.getLnt() != 0) {
+            this.lat = request.getLat();
+            this.lnt = request.getLnt();
+        }
+
+    }
 
 }
