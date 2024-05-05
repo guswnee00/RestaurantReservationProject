@@ -16,6 +16,8 @@ import java.time.LocalDateTime;
 public class ReservationDto {
 
     private String username;
+    private String phoneNumber;
+
     private String managerName;
     private String restaurantName;
 
@@ -25,17 +27,18 @@ public class ReservationDto {
     private ReservationStatus status;
     private LocalDateTime statusModifiedAt;
 
-    private LocalDateTime reservationTime;
+    private LocalDateTime reservationDateTime;
 
     public static ReservationDto toDto(ReservationEntity entity) {
         return ReservationDto.builder()
                 .username(entity.getUser().getUsername())
+                .phoneNumber(entity.getUser().getPhoneNumber())
                 .managerName(entity.getManager().getUsername())
                 .restaurantName(entity.getRestaurant().getRestaurantName())
                 .headCount(entity.getHeadCount())
                 .status(entity.getStatus())
                 .statusModifiedAt(entity.getStatusModifiedAt())
-                .reservationTime(entity.getReservationTime())
+                .reservationDateTime(entity.getReservationDateTime())
                 .build();
     }
 

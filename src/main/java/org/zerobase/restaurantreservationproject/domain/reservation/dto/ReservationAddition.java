@@ -18,6 +18,7 @@ public class ReservationAddition {
     public static class Request {
 
         private String username;
+        private String phoneNumber;
 
         private String restaurantName;
 
@@ -38,6 +39,7 @@ public class ReservationAddition {
     public static class Response {
 
         private String username;
+        private String phoneNumber;
 
         private String restaurantName;
 
@@ -52,11 +54,12 @@ public class ReservationAddition {
         public static Response fromDto(ReservationDto dto) {
             return Response.builder()
                     .username(dto.getUsername())
+                    .phoneNumber(dto.getPhoneNumber())
                     .restaurantName(dto.getRestaurantName())
                     .headCount(dto.getHeadCount())
                     .status(dto.getStatus())
                     .statusModifiedAt(dto.getStatusModifiedAt())
-                    .reservationTime(dto.getReservationTime())
+                    .reservationTime(dto.getReservationDateTime())
                     .build();
         }
     }
