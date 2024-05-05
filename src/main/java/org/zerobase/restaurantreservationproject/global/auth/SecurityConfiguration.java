@@ -1,5 +1,7 @@
-package org.zerobase.restaurantreservationproject.global.auth.security;
+package org.zerobase.restaurantreservationproject.global.auth;
 
+import jakarta.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,20 +12,15 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.zerobase.restaurantreservationproject.global.auth.security.user.UserJwtUtil;
-import org.zerobase.restaurantreservationproject.global.auth.security.user.UserLoginFilter;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfiguration {
 
     private final AuthenticationConfiguration authenticationConfiguration;
-    private final UserJwtUtil jwtUtil;
-
-    public SecurityConfiguration(AuthenticationConfiguration authenticationConfiguration, UserJwtUtil jwtUtil) {
-        this.authenticationConfiguration = authenticationConfiguration;
-        this.jwtUtil = jwtUtil;
-    }
+    private final JwtUtil jwtUtil;
+    private final EntityManager entityManager;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -38,13 +35,16 @@ public class SecurityConfiguration {
 
         // 경로별 인가 작업
         http.authorizeHttpRequests((auth) -> auth
-                // TODO
-                //  - 회원가입/로그인 페이지는 누구나 접근 가능
-                .requestMatchers("/user/**").permitAll()
+                .requestMatchers("/signup/**").permitAll()
+                .requestMatchers("/user/**").hasRole("USER")
+                .requestMatchers("/manager/**").hasRole("MANAGER")
                 .anyRequest().authenticated());
 
+        // Jwt 필터 추가
+        http.addFilterBefore(new JwtFilter(jwtUtil, entityManager), LoginFilter.class);
+
         // 필터 추가
-        http.addFilterAt(new UserLoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         // 세션 stateless 설정
         http.sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

@@ -1,4 +1,4 @@
-package org.zerobase.restaurantreservationproject.global.auth.security.user;
+package org.zerobase.restaurantreservationproject.global.auth;
 
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,14 +10,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Component
-public class UserJwtUtil {
+public class JwtUtil {
 
     private SecretKey secretKey;
 
     /**
      * secretKey 암호화
      */
-    public UserJwtUtil(@Value("${spring.jwt.secret}") String secret) {
+    public JwtUtil(@Value("${spring.jwt.secret}") String secret) {
         secretKey = new SecretKeySpec(
                             secret.getBytes(StandardCharsets.UTF_8),
                             Jwts.SIG.HS256.key().build().getAlgorithm());

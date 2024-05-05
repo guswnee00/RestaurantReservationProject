@@ -1,4 +1,4 @@
-package org.zerobase.restaurantreservationproject.global.auth.security.user;
+package org.zerobase.restaurantreservationproject.global.auth;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
@@ -7,14 +7,18 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-public class UserLoginFilter extends UsernamePasswordAuthenticationFilter {
+import java.util.Collection;
+
+public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
-    private final UserJwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
 
-    public UserLoginFilter(AuthenticationManager authenticationManager, UserJwtUtil jwtUtil) {
+    public LoginFilter(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
     }
@@ -36,21 +40,25 @@ public class UserLoginFilter extends UsernamePasswordAuthenticationFilter {
         return authenticationManager.authenticate(authenticationToken);
     }
 
-    /**
-     * TODO
-     *  - 로그인 성공시 실행할 메소드
-     */
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
+        String username = userDetails.getUsername();
+
+        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+        String role = authorities.stream()
+                                .map(GrantedAuthority::getAuthority)
+                                .findFirst()
+                                .orElse("");
+
+        String token = jwtUtil.createJwt(username, role, 60 * 60 * 10L);
+
+        response.addHeader("Authorization", "Bearer " + token);
     }
 
-    /**
-     * TODO
-     *  - 로그인 실패시 실행할 메소드
-     */
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) {
-
+        response.setStatus(401);
     }
 }
