@@ -25,7 +25,7 @@ public class ReviewController {
      * 사용자의 리뷰 작성
      */
     @PreAuthorize("hasRole('ROLE_USER')")
-    @PostMapping("/review/registration/{username}")
+    @PostMapping("/user/review/registration/{username}")
     public ResponseEntity<?> registerReview(@PathVariable String username,
                                             @RequestBody ReviewAddition.Request request,
                                             @AuthenticationPrincipal UserEntity user
@@ -42,7 +42,7 @@ public class ReviewController {
      * 사용자의 리뷰 수정
      */
     @PreAuthorize("hasRole('ROLE_USER')")
-    @PutMapping("/review/modification/{username}")
+    @PutMapping("/user/review/modification/{username}")
     public ResponseEntity<?> modifyReview(@PathVariable String username,
                                           @RequestBody ReviewModification.Request request,
                                           @AuthenticationPrincipal UserEntity user
@@ -60,7 +60,7 @@ public class ReviewController {
      * 사용자의 리뷰 삭제
      */
     @PreAuthorize("hasRole('ROLE_USER')")
-    @DeleteMapping("/review/delete/{username}/{restaurantName}")
+    @DeleteMapping("/user/review/delete/{username}/{restaurantName}")
     public ResponseEntity<?> deleteReviewByUser(@PathVariable String username,
                                                 @PathVariable String restaurantName
     ) {
@@ -72,7 +72,7 @@ public class ReviewController {
      * 매니저의 리뷰 삭제
      */
     @PreAuthorize("hasRole('ROLE_MANAGER')")
-    @DeleteMapping("/review/delete/{managerName}/{id}")
+    @DeleteMapping("/manager/review/delete/{managerName}/{id}")
     public ResponseEntity<?> deleteReviewByManager(@PathVariable String managerName,
                                                    @PathVariable Long id
     ) {

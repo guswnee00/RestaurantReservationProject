@@ -41,6 +41,7 @@ public class ReservationManagerController {
     /**
      * 예약 정보 확인
      */
+    @PreAuthorize("hasRole('ROLE_MANAGER')")
     @GetMapping("/manager/reservation/{managerName}/detail")
     public ResponseEntity<?> reservationDetail(@PathVariable String managerName,
                                                @AuthenticationPrincipal ManagerEntity manager

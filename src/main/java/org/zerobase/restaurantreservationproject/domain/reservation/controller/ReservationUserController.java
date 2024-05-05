@@ -25,7 +25,7 @@ public class ReservationUserController {
      * 레스토랑 예약
      */
     @PreAuthorize("hasRole('ROLE_USER')")
-    @PostMapping("/reservation/request")
+    @PostMapping("/user/reservation/request")
     public ResponseEntity<?> addReservation(@RequestBody ReservationAddition.Request request,
                                             @AuthenticationPrincipal UserEntity user
     ) {
@@ -52,7 +52,7 @@ public class ReservationUserController {
      * 예약 정보 확인
      */
     @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping("/reservation/{username}/detail")
+    @GetMapping("/user/reservation/{username}/detail")
     public ResponseEntity<?> reservationDetail(@PathVariable String username,
                                                @AuthenticationPrincipal UserEntity user
     ) {

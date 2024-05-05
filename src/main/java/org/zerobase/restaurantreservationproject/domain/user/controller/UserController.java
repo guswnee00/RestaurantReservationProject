@@ -22,7 +22,7 @@ public class UserController {
     /**
      * 일반 사용자 회원가입
      */
-    @PostMapping("/user/signup")
+    @PostMapping("/signup/user")
     public ResponseEntity<?> userSignup(@RequestBody UserAddition.Request request) {
         UserDto userDto = userService.signup(request);
         return ResponseEntity.ok(UserAddition.Response.fromDto(userDto));

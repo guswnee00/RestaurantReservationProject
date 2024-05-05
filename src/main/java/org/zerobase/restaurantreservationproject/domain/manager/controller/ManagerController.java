@@ -26,7 +26,7 @@ public class ManagerController {
     /**
      * 매니저 회원가입
      */
-    @PostMapping("/manager/signup")
+    @PostMapping("/signup/manager")
     public ResponseEntity<?> managerSignup(@RequestBody ManagerAddition.Request request) {
         ManagerDto managerDto = managerService.signup(request);
         return ResponseEntity.ok(ManagerAddition.Response.fromDto(managerDto));
