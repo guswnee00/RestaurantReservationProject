@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.zerobase.restaurantreservationproject.domain.manager.entity.ManagerEntity;
-import org.zerobase.restaurantreservationproject.domain.reservation.status.ReservationStatus;
+import org.zerobase.restaurantreservationproject.global.enumset.ReservationStatus;
 import org.zerobase.restaurantreservationproject.domain.restaurant.entity.RestaurantEntity;
 import org.zerobase.restaurantreservationproject.domain.user.entity.UserEntity;
 
@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 
 @Builder
 @Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -46,6 +47,6 @@ public class ReservationEntity {
     private LocalDateTime statusModifiedAt;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd HH:mm")
-    private LocalDateTime reservationTime;
+    private LocalDateTime reservationDateTime;
 
 }
