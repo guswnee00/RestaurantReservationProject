@@ -10,6 +10,9 @@ import org.zerobase.restaurantreservationproject.domain.review.dto.ReviewDto;
 import org.zerobase.restaurantreservationproject.domain.review.dto.ReviewModification;
 import org.zerobase.restaurantreservationproject.domain.review.service.ReviewService;
 import org.zerobase.restaurantreservationproject.domain.user.entity.UserEntity;
+import org.zerobase.restaurantreservationproject.global.error.CustomException;
+
+import static org.zerobase.restaurantreservationproject.global.error.CustomErrorCode.USERNAME_MISMATCH;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,7 +30,11 @@ public class ReviewController {
                                             @RequestBody ReviewAddition.Request request,
                                             @AuthenticationPrincipal UserEntity user
     ) {
-        ReviewDto reviewDto = reviewService.addReview(request);
+        String currentUsername = user.getUsername();
+        if(!username.equals(currentUsername)) {
+            throw new CustomException(USERNAME_MISMATCH);
+        }
+        ReviewDto reviewDto = reviewService.addReview(username, request);
         return ResponseEntity.ok(ReviewAddition.Response.fromDto(reviewDto));
     }
 
@@ -40,7 +47,11 @@ public class ReviewController {
                                           @RequestBody ReviewModification.Request request,
                                           @AuthenticationPrincipal UserEntity user
     ) {
-        ReviewDto reviewDto = reviewService.modifyReview(request);
+        String currentUsername = user.getUsername();
+        if(!username.equals(currentUsername)) {
+            throw new CustomException(USERNAME_MISMATCH);
+        }
+        ReviewDto reviewDto = reviewService.modifyReview(username, request);
         return ResponseEntity.ok(ReviewModification.Response.fromDto(reviewDto));
     }
 

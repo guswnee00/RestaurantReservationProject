@@ -34,10 +34,10 @@ public class ReviewService {
      *      3. 리뷰 repo 에 저장
      *      4. 리뷰 dto 반환
      */
-    public ReviewDto addReview(ReviewAddition.Request request) {
-        this.checkReservationExist(request.getUsername());
+    public ReviewDto addReview(String username, ReviewAddition.Request request) {
+        this.checkReservationExist(username);
 
-        ReservationEntity reservationEntity = reservationRepository.findByUser_Username(request.getUsername());
+        ReservationEntity reservationEntity = reservationRepository.findByUser_Username(username);
         this.checkPermissionToWriteReview(reservationEntity, request.getUsername(), request.getRestaurantName());
 
         ReviewEntity reviewEntity = reviewRepository.save(ReviewAddition.Request.toEntity(request, userRepository, restaurantRepository));
@@ -52,11 +52,11 @@ public class ReviewService {
      *      3. 수정된 리뷰 repo 저장
      *      4. 리뷰 dto 반환
      */
-    public ReviewDto modifyReview(ReviewModification.Request request) {
-        this.checkReviewExist(request.getUsername());
+    public ReviewDto modifyReview(String username, ReviewModification.Request request) {
+        this.checkReviewExist(username);
 
         // 수정
-        ReviewEntity oldReviewEntity = reviewRepository.findByUser_Username(request.getUsername());
+        ReviewEntity oldReviewEntity = reviewRepository.findByUser_Username(username);
         oldReviewEntity.modify(request);
 
         ReviewEntity newReviewEntity = reviewRepository.save(oldReviewEntity);
